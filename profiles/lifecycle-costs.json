@@ -1,0 +1,43 @@
+{
+  "ontology_version": "0.3.0",
+  "kind": "profile",
+  "module": "lifecycle_costs",
+  "version": "1.0.0",
+  "actors": {
+    "cost_steward": {
+      "meaning": "Role accountable for resource and spending evidence across the product lifecycle. The product governing party assigns this responsibility."
+    }
+  },
+  "requirements": {
+    "usage_attribution": {
+      "owner": "cost_steward",
+      "perspective": "organizational",
+      "intent": "Account for resource use during product conversations, agent builds and live operation.",
+      "check": {
+        "authority": "cost_steward",
+        "claim": "Every identified service and fixed charge has an attributable record or an explicit coverage gap. Records identify period, stage, activity, service, quantity and native unit, monetary amount and currency when known, evidence source and measurement status. Failed calls and retries count when they consume resources.",
+        "scope": "Each assessment period across design, build and operation, including shared overhead."
+      }
+    },
+    "cost_reconciliation": {
+      "owner": "cost_steward",
+      "perspective": "organizational",
+      "intent": "Produce traceable totals per activity, lifecycle stage and billing period.",
+      "check": {
+        "authority": "cost_steward",
+        "claim": "Count each charge once. Forecasts, estimates, measured usage and invoiced charges remain distinguishable. Reconcile estimates against billing evidence, track unallocated shared charges and identify incomplete totals. Sum only compatible units and currencies. Treat plan allowance and subscription fees separately.",
+        "scope": "Each assessment period across design, build and operation, including shared overhead."
+      }
+    },
+    "budget_visibility": {
+      "owner": "cost_steward",
+      "perspective": "organizational",
+      "intent": "Make expected consumption and available budget visible when choosing work, and compare actuals with forecasts afterward.",
+      "check": {
+        "authority": "cost_steward",
+        "claim": "Each planned milestone and operating period identifies its estimated range or estimation gap, budget owner, amount and unit if allocated, and remaining allowance when measurable. Record configured thresholds, response to reaching them and whether enforcement is available. An unspecified limit is reported as unset.",
+        "scope": "Each assessment period across design, build and operation, including shared overhead."
+      }
+    }
+  }
+}
