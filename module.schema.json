@@ -5,7 +5,7 @@
   "description": "A product or organization profile using the shared ontology.",
   "properties": {
     "ontology_version": {
-      "const": "0.1.0"
+      "const": "0.2.0"
     },
     "module": {
       "type": "string",

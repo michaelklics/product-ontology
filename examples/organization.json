@@ -1,0 +1,31 @@
+{
+  "ontology_version": "0.2.0",
+  "module": "organization",
+  "version": "1.0.0",
+  "actors": {
+    "operator": {
+      "meaning": "Organization accountable for operating the product."
+    }
+  },
+  "metrics": {
+    "monthly_cost": {
+      "meaning": "Sum of attributable operating charges.",
+      "unit": "USD",
+      "population": "All charges for this product across all providers.",
+      "window": "One complete UTC calendar month.",
+      "evidence": "Reconciled billing totals for the assessed month."
+    }
+  },
+  "requirements": {
+    "cost_ceiling": {
+      "owner": "operator",
+      "perspective": "business",
+      "intent": "Keep each month's operating cost within the approved budget.",
+      "check": {
+        "metric": "monthly_cost",
+        "operator": "at_most",
+        "value": 1000
+      }
+    }
+  }
+}

@@ -1,0 +1,90 @@
+{
+  "name": "Product ontology",
+  "version": "0.2.0",
+  "purpose": "Define product behavior, stakeholder requirements and optimization goals in a form that software factories can interpret consistently.",
+  "module_schema": "module.schema.json",
+  "encoding": {
+    "format": "JSON",
+    "character_encoding": "UTF-8",
+    "duplicate_object_keys": "reject",
+    "unknown_module_fields": "reject"
+  },
+  "vocabulary": {
+    "actors": "Participants that own goals, take actions or supply authoritative evidence. People, organizations and software may participate.",
+    "entities": "Things that keep their identity as their properties change.",
+    "relations": "Directed associations between named actors or entities.",
+    "actions": "Requests by an actor about a subject, with an explicit set of observable outcomes.",
+    "metrics": "Measurements defined by unit, population, time window and evidence source.",
+    "requirements": "Mandatory conditions with an accountable owner, stakeholder perspective and evidence check.",
+    "objectives": "Directions of improvement used to compare eligible candidates.",
+    "scenarios": "Concrete conditions and a trigger paired with an expected action outcome."
+  },
+  "composition": {
+    "dependency_pin": "immutable_git_commit",
+    "ontology_version_match": "exact",
+    "import_path_base": "importing_module_directory",
+    "import_identity_match": ["module", "version"],
+    "import_cycles": "reject",
+    "same_module_different_contents_or_versions": "reject",
+    "shared_transitive_import": "include_once",
+    "merge_declarations": "union",
+    "identifier_scope": "entire_resolved_declaration_set",
+    "identifier_collisions": "reject",
+    "inherited_requirements": "all_remain_binding"
+  },
+  "references": [
+    {"from": "relations.*.source", "targets": ["actors", "entities"]},
+    {"from": "relations.*.target", "targets": ["actors", "entities"]},
+    {"from": "actions.*.actor", "targets": ["actors"]},
+    {"from": "actions.*.subject", "targets": ["entities"]},
+    {"from": "requirements.*.owner", "targets": ["actors"]},
+    {"from": "requirements.*.check.metric", "targets": ["metrics"]},
+    {"from": "requirements.*.check.authority", "targets": ["actors"]},
+    {"from": "objectives.*.owner", "targets": ["actors"]},
+    {"from": "objectives.*.metric", "targets": ["metrics"]},
+    {"from": "priority.*", "targets": ["objectives"]},
+    {"from": "scenarios.*.action", "targets": ["actions"]}
+  ],
+  "reference_semantics": {
+    "path": "A dot separates fields. An asterisk selects each object value or array element. Evaluate a path only where its fields are present.",
+    "resolution": "Each selected value must identify exactly one declaration of an allowed target kind.",
+    "scenario_outcome": "The expected outcome must occur in the outcomes of the scenario's referenced action."
+  },
+  "evaluation": {
+    "perspectives": {
+      "experience": "What a participant can accomplish or observe.",
+      "business": "What an accountable operator requires or seeks to improve."
+    },
+    "numeric_checks": {
+      "at_most": "observed value <= declared value",
+      "at_least": "observed value >= declared value",
+      "unit": "referenced_metric_unit",
+      "valid_comparison_true": "satisfied",
+      "valid_comparison_false": "violated",
+      "missing_evidence": "unknown",
+      "empty_population": "unknown",
+      "incomplete_window": "unknown"
+    },
+    "attestation_checks": {
+      "applicable_endorsement": "satisfied",
+      "applicable_explicit_denial": "violated",
+      "missing_or_disputed": "unknown",
+      "applicability": "Evidence must identify the assessment subject, named authority, claim and scope."
+    },
+    "evidence": "Record the source, assessment subject and period. Distinguish test, projected and observed results. An operational claim requires observation for its declared period.",
+    "eligibility": "Every effective requirement must be satisfied. Preserve violated and unknown results separately.",
+    "ranking": {
+      "population": "eligible_candidates",
+      "order": "entry_module_priority_lexicographic",
+      "when_present": "Priority lists every effective objective exactly once.",
+      "when_absent": "Report the individual measurements.",
+      "missing_measure_at_deciding_position": "unresolved",
+      "equal_on_all_objectives": "tie"
+    }
+  },
+  "evolution": {
+    "meaning_or_field_change": "publish_new_version",
+    "adoption": "explicit_dependency_pin_update",
+    "evaluation": "Compare agent interpretations on fixed inputs across versions. Record ontology version, agent version, inputs, expected decisions, observed decisions and clarification requests."
+  }
+}
