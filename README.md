@@ -4,7 +4,13 @@
 
 ## Adopt the dependency
 
-Pin this repository to a Git commit. In the consuming repository, create a JSON module whose ontology version matches the dependency. Declare the participants, behavior, experience guarantees, business limits and objectives of that particular product. An organization can distribute a module of shared policies, which products import by exact version. All inherited requirements continue to apply.
+Pin this repository to a Git commit. In the consuming repository, create a JSON module whose ontology version matches the dependency. Declare the participants, behavior, experience guarantees, organizational constraints and objectives of that particular product. An organization can distribute a module of shared policies, which products import by exact version. All inherited requirements continue to apply.
+
+## Product governance
+
+A product names its governing party with `governed_by`. The value resolves to one actor, locally or through an import. A collective can be that actor. In the product fixture, the council governs the product, the operator owns the cost requirement and a participant owns the experience objective. If legal ownership matters, declare it as a separate relation.
+
+To migrate from 0.2.0, set the ontology version to 0.3.0 and give each module a `kind` of `product` or `profile`. Each product declares its governing party. Shared profiles contribute actors and policies. Replace the `business` perspective with `organizational` on requirements and objectives, version the changed modules and update import pins.
 
 ## Assess a declaration
 

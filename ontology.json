@@ -1,6 +1,6 @@
 {
   "name": "Product ontology",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "purpose": "Define product behavior, stakeholder requirements and optimization goals in a form that software factories can interpret consistently.",
   "module_schema": "module.schema.json",
   "encoding": {
@@ -19,6 +19,15 @@
     "objectives": "Directions of improvement used to compare eligible candidates.",
     "scenarios": "Concrete conditions and a trigger paired with an expected action outcome."
   },
+  "product_governance": {
+    "subject": "product module",
+    "relation": "governed_by",
+    "target": "one resolved actor, including a person, an organization or a group acting collectively",
+    "authority": ["adopt or revise the product specification", "resolve product-wide trade-offs"],
+    "scope": "The relationship applies only to the declaring product. Each product names its governing party explicitly and can reference an imported actor.",
+    "responsibility": "A requirement or objective owner is accountable for that declaration. Product governance and legal ownership are independent relationships.",
+    "conflict_resolution": "Report incompatible mandatory requirements to the governing party. Evaluations use the adopted requirements until an authorized revision takes effect."
+  },
   "composition": {
     "dependency_pin": "immutable_git_commit",
     "ontology_version_match": "exact",
@@ -33,6 +42,7 @@
     "inherited_requirements": "all_remain_binding"
   },
   "references": [
+    {"from": "governed_by", "targets": ["actors"]},
     {"from": "relations.*.source", "targets": ["actors", "entities"]},
     {"from": "relations.*.target", "targets": ["actors", "entities"]},
     {"from": "actions.*.actor", "targets": ["actors"]},
@@ -53,7 +63,7 @@
   "evaluation": {
     "perspectives": {
       "experience": "What a participant can accomplish or observe.",
-      "business": "What an accountable operator requires or seeks to improve."
+      "organizational": "What stakeholders responsible for the product require or seek to improve, including mission, stewardship, cost and risk."
     },
     "numeric_checks": {
       "at_most": "observed value <= declared value",

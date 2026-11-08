@@ -5,7 +5,18 @@
   "description": "A product or organization profile using the shared ontology.",
   "properties": {
     "ontology_version": {
-      "const": "0.2.0"
+      "const": "0.3.0"
+    },
+    "kind": {
+      "enum": [
+        "product",
+        "profile"
+      ]
+    },
+    "governed_by": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]*$",
+      "description": "Actor with final authority to adopt the product specification and resolve product-wide trade-offs."
     },
     "module": {
       "type": "string",
@@ -116,7 +127,8 @@
   "required": [
     "ontology_version",
     "module",
-    "version"
+    "version",
+    "kind"
   ],
   "additionalProperties": false,
   "definitions": {
@@ -329,7 +341,7 @@
         "perspective": {
           "enum": [
             "experience",
-            "business"
+            "organizational"
           ]
         },
         "intent": {
@@ -366,7 +378,7 @@
         "perspective": {
           "enum": [
             "experience",
-            "business"
+            "organizational"
           ]
         },
         "intent": {
@@ -421,6 +433,25 @@
         "expected_outcome"
       ],
       "additionalProperties": false
+    }
+  },
+  "if": {
+    "properties": {
+      "kind": {
+        "const": "product"
+      }
+    }
+  },
+  "then": {
+    "required": [
+      "governed_by"
+    ]
+  },
+  "else": {
+    "not": {
+      "required": [
+        "governed_by"
+      ]
     }
   }
 }

@@ -1,7 +1,8 @@
 {
-  "ontology_version": "0.2.0",
+  "ontology_version": "0.3.0",
+  "kind": "profile",
   "module": "organization",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "actors": {
     "operator": {
       "meaning": "Organization accountable for operating the product."
@@ -19,7 +20,7 @@
   "requirements": {
     "cost_ceiling": {
       "owner": "operator",
-      "perspective": "business",
+      "perspective": "organizational",
       "intent": "Keep each month's operating cost within the approved budget.",
       "check": {
         "metric": "monthly_cost",

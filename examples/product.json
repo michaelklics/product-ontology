@@ -1,17 +1,22 @@
 {
-  "ontology_version": "0.2.0",
+  "ontology_version": "0.3.0",
+  "kind": "product",
+  "governed_by": "council",
   "module": "product",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "imports": [
     {
       "path": "organization.json",
       "module": "organization",
-      "version": "1.0.0"
+      "version": "2.0.0"
     }
   ],
   "actors": {
     "participant": {
       "meaning": "Person or agent seeking the outcome of their own request."
+    },
+    "council": {
+      "meaning": "Group authorized to adopt this product specification and resolve competing product objectives."
     }
   },
   "entities": {
