@@ -1,0 +1,6 @@
+name: product_ontology
+version: "0.1.0"
+status: draft
+module_schema: module.schema.json
+semantics: README.md
+entry_example: examples/product.yaml

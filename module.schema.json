@@ -1,0 +1,426 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Product ontology module",
+  "type": "object",
+  "description": "A product or organization profile using the shared ontology.",
+  "properties": {
+    "ontology_version": {
+      "const": "0.1.0"
+    },
+    "module": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]*$"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "imports": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/import"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "actors": {
+      "type": "object",
+      "propertyNames": {
+        "type": "string",
+        "pattern": "^[a-z][a-z0-9_]*$"
+      },
+      "additionalProperties": {
+        "$ref": "#/definitions/actor"
+      }
+    },
+    "entities": {
+      "type": "object",
+      "propertyNames": {
+        "type": "string",
+        "pattern": "^[a-z][a-z0-9_]*$"
+      },
+      "additionalProperties": {
+        "$ref": "#/definitions/entity"
+      }
+    },
+    "relations": {
+      "type": "object",
+      "propertyNames": {
+        "type": "string",
+        "pattern": "^[a-z][a-z0-9_]*$"
+      },
+      "additionalProperties": {
+        "$ref": "#/definitions/relation"
+      }
+    },
+    "actions": {
+      "type": "object",
+      "propertyNames": {
+        "type": "string",
+        "pattern": "^[a-z][a-z0-9_]*$"
+      },
+      "additionalProperties": {
+        "$ref": "#/definitions/action"
+      }
+    },
+    "metrics": {
+      "type": "object",
+      "propertyNames": {
+        "type": "string",
+        "pattern": "^[a-z][a-z0-9_]*$"
+      },
+      "additionalProperties": {
+        "$ref": "#/definitions/metric"
+      }
+    },
+    "requirements": {
+      "type": "object",
+      "propertyNames": {
+        "type": "string",
+        "pattern": "^[a-z][a-z0-9_]*$"
+      },
+      "additionalProperties": {
+        "$ref": "#/definitions/requirement"
+      }
+    },
+    "objectives": {
+      "type": "object",
+      "propertyNames": {
+        "type": "string",
+        "pattern": "^[a-z][a-z0-9_]*$"
+      },
+      "additionalProperties": {
+        "$ref": "#/definitions/objective"
+      }
+    },
+    "scenarios": {
+      "type": "object",
+      "propertyNames": {
+        "type": "string",
+        "pattern": "^[a-z][a-z0-9_]*$"
+      },
+      "additionalProperties": {
+        "$ref": "#/definitions/scenario"
+      }
+    },
+    "priority": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z][a-z0-9_]*$"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    }
+  },
+  "required": [
+    "ontology_version",
+    "module",
+    "version"
+  ],
+  "additionalProperties": false,
+  "definitions": {
+    "import": {
+      "type": "object",
+      "description": "An exact dependency on another local module.",
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "module": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]*$"
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+        }
+      },
+      "required": [
+        "path",
+        "module",
+        "version"
+      ],
+      "additionalProperties": false
+    },
+    "actor": {
+      "type": "object",
+      "description": "A participant whose goals or authority matter.",
+      "properties": {
+        "meaning": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "meaning"
+      ],
+      "additionalProperties": false
+    },
+    "entity": {
+      "type": "object",
+      "description": "A concept with continuing identity.",
+      "properties": {
+        "meaning": {
+          "type": "string",
+          "minLength": 1
+        },
+        "identity": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "meaning",
+        "identity"
+      ],
+      "additionalProperties": false
+    },
+    "relation": {
+      "type": "object",
+      "description": "A directed association between two declared concepts.",
+      "properties": {
+        "meaning": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]*$"
+        },
+        "target": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]*$"
+        }
+      },
+      "required": [
+        "meaning",
+        "source",
+        "target"
+      ],
+      "additionalProperties": false
+    },
+    "action": {
+      "type": "object",
+      "description": "An actor's intent and its permitted observable outcomes.",
+      "properties": {
+        "actor": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]*$"
+        },
+        "subject": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]*$"
+        },
+        "intent": {
+          "type": "string",
+          "minLength": 1
+        },
+        "outcomes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "actor",
+        "subject",
+        "intent",
+        "outcomes"
+      ],
+      "additionalProperties": false
+    },
+    "metric": {
+      "type": "object",
+      "description": "A measured quantity. Values are comparable only within this definition.",
+      "properties": {
+        "meaning": {
+          "type": "string",
+          "minLength": 1
+        },
+        "unit": {
+          "type": "string",
+          "minLength": 1
+        },
+        "population": {
+          "type": "string",
+          "minLength": 1
+        },
+        "window": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "meaning",
+        "unit",
+        "population",
+        "window",
+        "evidence"
+      ],
+      "additionalProperties": false
+    },
+    "bound": {
+      "type": "object",
+      "description": "A comparison in the metric's unit.",
+      "properties": {
+        "metric": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]*$"
+        },
+        "operator": {
+          "enum": [
+            "at_most",
+            "at_least"
+          ]
+        },
+        "value": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "metric",
+        "operator",
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "attestation": {
+      "type": "object",
+      "description": "Evidence issued by the named authority for the assessment subject.",
+      "properties": {
+        "authority": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]*$"
+        },
+        "claim": {
+          "type": "string",
+          "minLength": 1
+        },
+        "scope": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "authority",
+        "claim",
+        "scope"
+      ],
+      "additionalProperties": false
+    },
+    "requirement": {
+      "type": "object",
+      "description": "A mandatory condition owned by a stakeholder.",
+      "properties": {
+        "owner": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]*$"
+        },
+        "perspective": {
+          "enum": [
+            "experience",
+            "business"
+          ]
+        },
+        "intent": {
+          "type": "string",
+          "minLength": 1
+        },
+        "check": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/bound"
+            },
+            {
+              "$ref": "#/definitions/attestation"
+            }
+          ]
+        }
+      },
+      "required": [
+        "owner",
+        "perspective",
+        "intent",
+        "check"
+      ],
+      "additionalProperties": false
+    },
+    "objective": {
+      "type": "object",
+      "description": "A preference among candidates that satisfy the hard requirements.",
+      "properties": {
+        "owner": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]*$"
+        },
+        "perspective": {
+          "enum": [
+            "experience",
+            "business"
+          ]
+        },
+        "intent": {
+          "type": "string",
+          "minLength": 1
+        },
+        "metric": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]*$"
+        },
+        "direction": {
+          "enum": [
+            "maximize",
+            "minimize"
+          ]
+        }
+      },
+      "required": [
+        "owner",
+        "perspective",
+        "intent",
+        "metric",
+        "direction"
+      ],
+      "additionalProperties": false
+    },
+    "scenario": {
+      "type": "object",
+      "description": "A concrete observable example for evaluation.",
+      "properties": {
+        "action": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]*$"
+        },
+        "given": {
+          "type": "string",
+          "minLength": 1
+        },
+        "when": {
+          "type": "string",
+          "minLength": 1
+        },
+        "expected_outcome": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "action",
+        "given",
+        "when",
+        "expected_outcome"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,0 +1,64 @@
+ontology_version: "0.1.0"
+module: product
+version: "1.0.0"
+imports:
+  - {path: organization.yaml, module: organization, version: "1.0.0"}
+
+actors:
+  participant:
+    meaning: Person or agent seeking the outcome of their own request.
+
+entities:
+  request:
+    meaning: A recorded request for a product action.
+    identity: One stable identifier per accepted request.
+
+relations:
+  submitted_by:
+    meaning: Identifies the participant who submitted the request.
+    source: request
+    target: participant
+
+actions:
+  inspect_outcome:
+    actor: participant
+    subject: request
+    intent: Learn the outcome of a completed request the participant submitted.
+    outcomes: [outcome_visible, access_denied]
+
+metrics:
+  retrieval_rate:
+    meaning: Fraction of permitted inspections that return the recorded outcome.
+    unit: fraction
+    population: All inspections by submitters of their own completed requests.
+    window: One complete UTC calendar month.
+    evidence: Correlated inspection results and recorded request outcomes.
+
+requirements:
+  outcome_availability:
+    owner: participant
+    perspective: experience
+    intent: Participants can reliably retrieve their results.
+    check: {metric: retrieval_rate, operator: at_least, value: 0.99}
+
+objectives:
+  improve_retrieval:
+    owner: participant
+    perspective: experience
+    intent: Increase the share of participants who receive their result.
+    metric: retrieval_rate
+    direction: maximize
+
+priority: [improve_retrieval]
+
+scenarios:
+  retrieve_own_outcome:
+    action: inspect_outcome
+    given: The participant submitted the completed request.
+    when: The participant asks for its outcome.
+    expected_outcome: outcome_visible
+  protect_others_outcomes:
+    action: inspect_outcome
+    given: The completed request belongs to another participant.
+    when: The participant asks for its outcome.
+    expected_outcome: access_denied
