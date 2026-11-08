@@ -21,3 +21,7 @@ The [product fixture](examples/product.json) and [organization fixture](examples
 ## Scope of this version
 
 This release specifies numeric bounds, attestations, observable action outcomes and ordered objectives. Metric evidence sources, scenario setup and triggers include prose. Automated assessment requires corresponding observations or test bindings. The repository contains the declarative specification and schema. Factory execution and evidence collection are separate.
+
+## License
+
+This project is available under the [MIT License](LICENSE).
