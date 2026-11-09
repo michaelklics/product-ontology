@@ -6,7 +6,7 @@
 
 Pin this repository to a Git commit. In the consuming repository, create a JSON module whose ontology version matches the dependency. Declare the participants, behavior, experience guarantees, organizational constraints and objectives of that particular product. An organization can distribute a module of shared policies, which products import by exact version. All inherited requirements continue to apply.
 
-Use the optional [lifecycle cost profile](profiles/lifecycle-costs.json) to account for design, build and operating costs. Products import it when they need resource attribution, reconciliation and budget visibility.
+Declare a product's operating cost requirements and metrics in its product module. A software factory can declare its own resource and development cost requirements as a separate product. The ontology supplies the same metric and requirement vocabulary to both; it does not combine their accounting.
 
 ## Product governance
 
